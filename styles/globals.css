@@ -1,0 +1,52 @@
+html,
+body {
+  min-height: 100%;
+}
+
+#__next {
+  height: 100%;
+}
+
+code {
+  font-family: 'Public Sans', sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
+  padding: 0.1rem 0.4rem;
+  font-size: 90%;
+  color: #d400ff;
+  border-radius: 0.1335rem;
+
+}
+body{
+ background-color: #FBFBFB !important;
+}
+code:not([class*='language-']):before,
+code:not([class*='language-']):after {
+  content: '`';
+}
+code[class*='language-'] {
+  padding: 0;
+}
+
+/* .MuiToolbar-root {
+
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    min-height: 64px;
+    width: 100%;
+     margin-top: 0 !important;
+    border-radius: 6px;
+    padding: 0rem 1.5rem !important;
+    height: 80px !important;
+    background-color: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(47, 43, 61, 0.16);
+} */
+   @media (min-width: 600px) {
+    .css-yrz3oj-MuiPaper-root-MuiAppBar-root {
+        padding-left: 0rem;
+        padding-right: 0rem;
+    }
+}
