@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from 'react'
+import { useState, useEffect } from 'react'
 import { ContentState, EditorState, convertFromHTML, convertToRaw } from 'draft-js'
 
 // ** MUI Imports
@@ -115,6 +115,7 @@ const EditTaskDrawer = (props: SidebarEditTaskType) => {
       blocksFromHTML.contentBlocks,
       blocksFromHTML.entityMap
     )
+
     return EditorState.createWithContent(contentState)
   }
 
@@ -221,13 +222,14 @@ const EditTaskDrawer = (props: SidebarEditTaskType) => {
             render={({ field: { value, onChange } }) => (
               <CustomTextField
                 fullWidth
+                variant='filled'
                 value={value}
                 sx={{ mb: 4 }}
                 label='Title'
                 onChange={onChange}
                 placeholder='Task title'
                 error={Boolean(errors.title)}
-                {...(errors.title && { helperText: errors.title.message })}
+                helperText={errors.title ? String(errors.title.message) : undefined}
               />
             )}
           />
@@ -278,7 +280,7 @@ const EditTaskDrawer = (props: SidebarEditTaskType) => {
                 </EditorWrapper>
                 {errors.description && (
                   <Typography variant='caption' color='error' sx={{ display: 'block', mt: 1 }}>
-                    {errors.description.message}
+                    {String(errors.description.message)}
                   </Typography>
                 )}
               </Box>
@@ -292,12 +294,13 @@ const EditTaskDrawer = (props: SidebarEditTaskType) => {
               <CustomTextField
                 select
                 fullWidth
+                variant='filled'
                 sx={{ mb: 4 }}
                 label='Status'
                 id='validation-status-select'
                 error={Boolean(errors.status)}
                 aria-describedby='validation-status-select'
-                {...(errors.status && { helperText: errors.status.message })}
+                helperText={errors.status ? String(errors.status.message) : undefined}
                 SelectProps={{ value: value, onChange: e => onChange(e) }}
               >
                 {statusOptions.map(option => (
@@ -326,22 +329,35 @@ const EditTaskDrawer = (props: SidebarEditTaskType) => {
 
                   return option.fullName || ''
                 }}
-                renderOption={(props, option: UsersType) => (
-                  <Box component='li' sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                    <Avatar
-                      src={option.avatar}
-                      alt={option.fullName}
-                      sx={{ width: 30, height: 30, mr: 2 }}
-                    />
-                    {option.fullName}
-                  </Box>
-                )}
+                renderOption={(props, option) => {
+                  if (typeof option === 'string') {
+                    return (
+                      <Box component='li' {...props}>
+                        {option}
+                      </Box>
+                    )
+                  }
+
+                  // Handle UsersType
+                  return (
+                    <Box component='li' sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                      <Avatar
+                        src={option.avatar}
+                        alt={option.fullName}
+                        sx={{ width: 30, height: 30, mr: 2 }}
+                      />
+                      {option.fullName}
+                    </Box>
+                  )
+                }}
                 renderInput={(params) => (
+
                   <CustomTextField
                     {...params}
+                    variant='filled'
                     label='Assignee'
                     error={Boolean(errors.assignee)}
-                    {...(errors.assignee && { helperText: errors.assignee.message })}
+                    helperText={errors.assignee ? String(errors.assignee.message) : undefined}
                   />
                 )}
                 onChange={(event, newValue) => {
@@ -363,6 +379,7 @@ const EditTaskDrawer = (props: SidebarEditTaskType) => {
               <CustomTextField
                 select
                 fullWidth
+                variant='filled'
                 sx={{ mb: 4 }}
                 label='Priority'
                 SelectProps={{ value: value, onChange: e => onChange(e) }}
@@ -381,6 +398,7 @@ const EditTaskDrawer = (props: SidebarEditTaskType) => {
             render={({ field: { value, onChange } }) => (
               <CustomTextField
                 fullWidth
+                variant='filled'
                 type='date'
                 label='Due Date'
                 value={value}

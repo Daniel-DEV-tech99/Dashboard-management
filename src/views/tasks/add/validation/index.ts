@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import { EditorState } from 'draft-js'
 
 // Import the showErrors function from the AddTaskDrawer component
 import { showErrors } from '../AddTaskDrawer'
@@ -10,9 +11,9 @@ export const TaskSchema = yup.object().shape({
     .required(),
   description: yup
     .mixed()
-    .test('is-editor-state', 'Description is required', value => {
-      if (!value || !value.getCurrentContent) return false
-      const contentState = value.getCurrentContent()
+    .test('is-editor-state', 'Description is required', (value: unknown) => {
+      if (!value || typeof (value as EditorState).getCurrentContent !== 'function') return false
+      const contentState = (value as EditorState).getCurrentContent()
 
       return !contentState.getPlainText().trim() ? false : true
     })
