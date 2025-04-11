@@ -38,7 +38,7 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Home',
       icon: <HomeIcon/>,
-      path: '/dashboards/analytics'
+      path: '/project-info'
     },
     {
       title: 'Tasks',
